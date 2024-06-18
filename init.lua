@@ -678,10 +678,20 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      luasnip.config.setup {}
+      luasnip.config.setup {
+        -- This tells LuaSnip to remember to keep around the last snippet we were in.
+        -- We can jump into it even if we're out of the selection!
+        history = true,
+        -- If we have dynamic snippets, this one updates as we type. Really cool!
+        updateevents = 'TextChanged,TextChangedI',
+        -- Autosnippets, use only if explicitly needed!
+        -- enable_autosnippets = true,
+      }
       -- add local snippets
       local my_snippets = require 'snippets.all'
+      local my_go_snippets = require 'snippets.go'
       luasnip.add_snippets('all', my_snippets)
+      luasnip.add_snippets('go', my_go_snippets)
 
       cmp.setup {
         snippet = {
